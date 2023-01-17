@@ -7,19 +7,21 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
 import { IntroductionComponent } from './introduction/introduction.component';
+import { DonutListComponent } from './admin/container/donut-list/donut-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    IntroductionComponent
+    IntroductionComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    DonutListComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
