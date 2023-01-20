@@ -1,21 +1,2 @@
-<div class="base-container">
-<div class="center-text">
-  <h1>Welcome</h1>
-</div>
-<mat-card class="test">
-  <p class="intro-text">
-    {{ title }} app is running!
-  </p>
-</mat-card>
-<button (click)="handleClick($event)">click</button>
-<input (input)="newMessage = messageInput.value" #messageInput/>
-<p>{{ messageInput.value }}</p>
-<mat-card class="test">
-  <p class="intro-text">
-    this is your message: {{ newMessage }}
-  </p>
-</mat-card>
-<app-introduction/>
-<app-donut-list></app-donut-list>
-</div>
+<app-navbar/>
 <router-outlet></router-outlet>
