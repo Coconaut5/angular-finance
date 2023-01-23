@@ -6,10 +6,9 @@
 
 .center-text {
   margin: auto;
-  color:rgb(223, 122, 236);
+  color: rgb(223, 122, 236);
   padding-top: 1rem;
   text-align: center;
-
 }
 
 .base-container {
@@ -31,7 +30,7 @@
   margin-right: 0;
   color: #fff;
   height: 3rem;
-  font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+  font: 500 20px/32px Roboto, 'Helvetica Neue', sans-serif;
 }
 
 .nav a {
@@ -55,6 +54,16 @@
   align-items: center;
   height: 100%;
   float: right;
+  margin: 0 auto;
+}
+
+.nav-header {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  float: left;
+  padding-left: 1rem;
+  margin: 0 auto;
 }
 
 .nav-item:hover {
@@ -67,7 +76,49 @@
   align-items: flex-start;
 }
 
-@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+.service-card {
+  display: flex;
+  align-items: center;
+  background: #3f3f3ff3;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
 
-html, body { height: 100%; background-color: rgb(39, 37, 37); }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+  transition: transform 0.2s ease-in-out;
+  &:hover {
+    transform: translateY(-0.2rem);
+  }
+  &-name {
+    color: white;
+    padding-top: 1rem;
+    font-size: 2rem;
+  }
+  &-label {
+    border: 0.1rem solid rgb(236, 171, 245);
+    border-radius: 0.5rem;
+    padding: 0 1rem;
+    font-size: 0.9rem;
+    color: rgb(236, 171, 245);
+  }
+  &-description {
+    padding-top: 0.8rem;
+    font-size: 1.2rem;
+    color: rgb(127, 183, 206);
+  }
+  &-icon {
+    width: 3rem;
+    margin-right: 1rem;
+  }
+}
+
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+html,
+body {
+  height: 100%;
+  background-color: rgb(39, 37, 37);
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}

@@ -1,0 +1,18 @@
+<div class="service-card">
+  <img
+    src="/assets/img/{{ service.icon }}.svg"
+    [alt]="service.name"
+    class="service-card-icon"
+  />
+  <div>
+    <p class="service-card-name">{{ service.name }}</p>
+    <ng-container [ngSwitch]="service.modifications" ]>
+      <span
+        *ngSwitchCase="service.modifications.length > 1"
+        class="service-card-label"
+        >MODIFICATIONS</span
+      >
+    </ng-container>
+    <p class="service-card-description">{{ service.description }}</p>
+  </div>
+</div>

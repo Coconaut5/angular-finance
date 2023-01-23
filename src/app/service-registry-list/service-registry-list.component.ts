@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ServiceRegistry } from '../models/service-registry.model';
 import { ServiceRegistryService } from '../services/service-registry.service';
 
@@ -7,19 +8,17 @@ import { ServiceRegistryService } from '../services/service-registry.service';
   templateUrl: './service-registry-list.component.html',
 })
 export class ServiceRegistryListComponent {
-  serviceRegistries!: ServiceRegistry[];
+  serviceRegistries$!: Observable<ServiceRegistry[]>;
 
   constructor(private serviceRegistryService: ServiceRegistryService) {}
 
-  isDataAvailable: boolean = false;
-
   ngOnInit(): void {
-    this.serviceRegistryService.read().subscribe(
-      serviceRegistries => console.log('serviceRegistries', serviceRegistries),
-      registries => (this.serviceRegistries = registries),
-      //() => (this.isDataAvailable = true),
-      // why is below undefined?
-      () => console.log(this.serviceRegistries),
-    );
+    // store the observable from the service containing the products data
+    this.serviceRegistries$ =
+      this.serviceRegistryService.getServiceRegistries();
+  }
+
+  trackById(index: number, value: ServiceRegistry) {
+    return value.id;
   }
 }

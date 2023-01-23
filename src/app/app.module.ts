@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { ServiceRegistryListComponent } from './service-registry-list/service-registry-list.component';
 import { ServiceRegistryService } from './services/service-registry.service';
+import { ServiceCardComponent } from './service-card/service-card.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ServiceRegistryService } from './services/service-registry.service';
     NavbarComponent,
     LoginComponent,
     ServiceRegistryListComponent,
+    ServiceCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,7 @@ import { ServiceRegistryService } from './services/service-registry.service';
     MatButtonModule,
     HttpClientModule,
   ],
-  providers: [ServiceRegistryService],
+  //providers: [ServiceRegistryService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

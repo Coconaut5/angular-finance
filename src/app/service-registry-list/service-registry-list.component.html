@@ -1,4 +1,10 @@
-<div *ngIf="isDataAvailable">
-  <p>hello here is the list:</p>
-  <p>{{ serviceRegistries }}</p>
-</div>
+<ng-container *ngIf="serviceRegistries$ | async as serviceRegistries">
+  <ng-container *ngIf="serviceRegistries.length; else loading">
+    <div *ngFor="let service of serviceRegistries; trackBy: trackById">
+      <app-service-card [service]="service"></app-service-card>
+    </div>
+    <p style="font-weight: bold">hello</p>
+    <li>one</li>
+  </ng-container>
+  <ng-template #loading> Loading stuff... </ng-template>
+</ng-container>
