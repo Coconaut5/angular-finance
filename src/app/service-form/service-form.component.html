@@ -1,0 +1,105 @@
+<form class="service-form" (ngSubmit)="handleSubmit(form)" #form="ngForm">
+  <label>
+    <span>Name</span>
+    <input
+      type="text"
+      name="name"
+      class="input"
+      required
+      minlength="5"
+      ngModel
+      [ngModelOptions]="{ updateOn: 'blur' }"
+      #name="ngModel"
+    />
+    <!--[ngModel]="service.name"-->
+    <ng-container *ngIf="name.invalid && name.touched">
+      <div *ngIf="name?.errors?.['required']">Name is required.</div>
+      <div *ngIf="name?.errors?.['minlength']">
+        Minimum length of a name is 5.
+      </div>
+    </ng-container>
+  </label>
+  <label>
+    <span>Description</span>
+    <textarea
+      name="description"
+      class="input"
+      required
+      minlength="10"
+      ngModel
+      #description="ngModel"
+    >
+    </textarea>
+    <ng-container *ngIf="description.invalid && description.touched">
+      <div *ngIf="description?.errors?.['required']">
+        Description is required.
+      </div>
+      <div *ngIf="description?.errors?.['minlength']">
+        Minimum length of a description is 10.
+      </div>
+    </ng-container>
+  </label>
+  <label>
+    <span>Icon</span>
+    <select name="icon" class="input" required ngModel #icon="ngModel">
+      <option *ngFor="let icon of icons" [ngValue]="icon">{{ icon }}</option>
+    </select>
+    <ng-container *ngIf="icon.invalid && icon.touched">
+      <div *ngIf="icon?.errors?.['required']">Icon is required.</div>
+    </ng-container>
+  </label>
+  <label>
+    <span>Created By</span>
+    <input type="text" name="created_by" class="input" ngModel />
+  </label>
+  <label>
+    <span>Host</span>
+    <input
+      type="text"
+      name="host"
+      class="input"
+      required
+      ngModel
+      #host="ngModel"
+    />
+    <ng-container *ngIf="host.invalid && host.touched">
+      <div *ngIf="host?.errors?.['required']">Host is required.</div>
+    </ng-container>
+  </label>
+  <label>
+    <span>Port</span>
+    <input
+      type="number"
+      name="port"
+      class="input"
+      required
+      ngModel
+      #port="ngModel"
+    />
+    <ng-container *ngIf="port.invalid && port.touched">
+      <div *ngIf="port?.errors?.['required']">Port is required.</div>
+    </ng-container>
+  </label>
+  <div>
+    <p>Type:</p>
+    <label>
+      <input
+        type="radio"
+        name="consul"
+        value="CONSUL"
+        required
+        [ngModel]="'CONSUL'"
+      />
+      <span>Consul</span>
+    </label>
+  </div>
+  <div *ngIf="form.valid && form.submitted; else createButtons">
+    <mat-spinner style="width: 5%"></mat-spinner>
+  </div>
+  <ng-template #createButtons>
+    <button type="submit">Create</button>
+    <button type="button" (click)="form.resetForm()">Reset Form</button>
+  </ng-template>
+  <pre>{{ service | json }}</pre>
+  <pre>{{ form.value | json }}</pre>
+</form>
