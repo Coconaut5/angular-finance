@@ -51,9 +51,11 @@ export class ServiceRegistryService {
   }
 
   createService(payload: ServiceRegistry) {
-    return this.http.post<ServiceRegistry>(URL, payload);
-    //this.serviceRegistries = [...this.serviceRegistries, payload];
-    //console.log(this.serviceRegistries);
+    return this.http.post<ServiceRegistry>(URL, payload).pipe(
+      tap(service => {
+        this.serviceRegistries = [...this.serviceRegistries, service];
+      }),
+    );
   }
 
   updateService(payload: ServiceRegistry) {
