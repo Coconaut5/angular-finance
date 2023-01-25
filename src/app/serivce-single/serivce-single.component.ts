@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceRegistry } from '../models/service-registry.model';
+import { ServiceRegistryService } from '../services/service-registry.service';
 
 @Component({
   selector: 'app-serivce-single',
@@ -8,11 +9,24 @@ import { ServiceRegistry } from '../models/service-registry.model';
 export class SerivceSingleComponent implements OnInit {
   service!: ServiceRegistry;
 
+  constructor(private serviceRegistryService: ServiceRegistryService) {}
+
   ngOnInit(): void {
-    this.service;
+    this.serviceRegistryService.getService('id');
+    //.subscribe((service: ServiceRegistry) => (this.service = service));
   }
 
   onCreate(service: ServiceRegistry) {
-    console.log('onCreate', service);
+    this.serviceRegistryService
+      .createService(service)
+      .subscribe(() => console.log('created success'));
+  }
+
+  onUpdate(service: ServiceRegistry) {
+    this.serviceRegistryService.updateService(service);
+  }
+
+  onDelete(service: ServiceRegistry) {
+    this.serviceRegistryService.deleteService(service);
   }
 }

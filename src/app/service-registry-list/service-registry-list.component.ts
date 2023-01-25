@@ -14,8 +14,7 @@ export class ServiceRegistryListComponent {
 
   ngOnInit(): void {
     // store the observable from the service containing the products data
-    this.serviceRegistries$ =
-      this.serviceRegistryService.getServiceRegistries();
+    this.serviceRegistries$ = this.serviceRegistryService.getServices();
   }
 
   trackById(index: number, value: ServiceRegistry) {

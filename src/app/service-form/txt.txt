@@ -1,4 +1,4 @@
-<form class="service-form" [formGroup]="serviceForm">
+<form class="service-form" #form="ngForm">
   <label>
     <span>Name</span>
     <input
@@ -52,38 +52,33 @@
     <span>Created By</span>
     <input type="text" name="created_by" class="input" ngModel />
   </label>
-
-  <div formGroupName="server_config">
-    <label>
-      <span>Host</span>
-      <input
-        id="host"
-        type="text"
-        class="input"
-        required
-        formControlName="host"
-        #host="ngModel"
-      />
-      <ng-container *ngIf="host.invalid && host.touched">
-        <div *ngIf="host?.errors?.['required']">Host is required.</div>
-      </ng-container>
-    </label>
-    <label>
-      <span>Port</span>
-      <input
-        id="port"
-        type="number"
-        class="input"
-        required
-        formControlName="port"
-        #port="ngModel"
-      />
-      <ng-container *ngIf="port.invalid && port.touched">
-        <div *ngIf="port?.errors?.['required']">Port is required.</div>
-      </ng-container>
-    </label>
-  </div>
-
+  <label>
+    <span>Host</span>
+    <input
+      type="text"
+      class="input"
+      required
+      [(ngModel)]="service.server_config.host"
+      #host="ngModel"
+    />
+    <ng-container *ngIf="host.invalid && host.touched">
+      <div *ngIf="host?.errors?.['required']">Host is required.</div>
+    </ng-container>
+  </label>
+  <label>
+    <span>Port</span>
+    <input
+      type="number"
+      class="input"
+      required
+      [ngModel]="service.server_config.port"
+      [ngModelOptions]="{ standalone: true }"
+      #port="ngModel"
+    />
+    <ng-container *ngIf="port.invalid && port.touched">
+      <div *ngIf="port?.errors?.['required']">Port is required.</div>
+    </ng-container>
+  </label>
   <div>
     <p>Type:</p>
     <label>

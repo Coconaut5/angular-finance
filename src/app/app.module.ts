@@ -19,6 +19,7 @@ import { SerivceSingleComponent } from './serivce-single/serivce-single.componen
 import { ServiceFormComponent } from './service-form/service-form.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormsModule,
     MatRadioModule,
     MatProgressSpinnerModule,
+    ReactiveFormsModule,
   ],
   //providers: [ServiceRegistryService],
   bootstrap: [AppComponent],
