@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ServiceRegistry } from '../models/service-registry.model';
+import { ServiceRegistryService } from '../services/service-registry.service';
 
 @Component({
   selector: 'app-service-card',
@@ -15,6 +16,13 @@ import { ServiceRegistry } from '../models/service-registry.model';
 })
 export class ServiceCardComponent {
   @Input() service!: ServiceRegistry;
+  @Output() delete = new EventEmitter<ServiceRegistry>();
 
-  constructor() {}
+  constructor(private serviceRegistryService: ServiceRegistryService) {}
+
+  handleDelete() {
+    if (confirm(`Do you really wish to delete ${this.service.name}?`)) {
+      this.delete.emit({ ...this.service });
+    }
+  }
 }

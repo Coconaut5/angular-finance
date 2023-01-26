@@ -1,111 +1,82 @@
-<form class="service-form" [formGroup]="serviceForm">
-  <label>
-    <span>Name</span>
-    <input
-      type="text"
-      name="name"
-      class="input"
-      required
-      minlength="5"
-      ngModel
-      [ngModelOptions]="{ updateOn: 'blur' }"
-      #name="ngModel"
-    />
-    <!--[ngModel]="service.name"-->
-    <ng-container *ngIf="name.invalid && name.touched">
-      <div *ngIf="name?.errors?.['required']">Name is required.</div>
-      <div *ngIf="name?.errors?.['minlength']">
-        Minimum length of a name is 5.
-      </div>
-    </ng-container>
-  </label>
-  <label>
-    <span>Description</span>
-    <textarea
-      name="description"
-      class="input"
-      required
-      minlength="10"
-      ngModel
-      #description="ngModel"
-    >
-    </textarea>
-    <ng-container *ngIf="description.invalid && description.touched">
-      <div *ngIf="description?.errors?.['required']">
-        Description is required.
-      </div>
-      <div *ngIf="description?.errors?.['minlength']">
-        Minimum length of a description is 10.
-      </div>
-    </ng-container>
-  </label>
-  <label>
-    <span>Icon</span>
-    <select name="icon" class="input" required ngModel #icon="ngModel">
-      <option *ngFor="let icon of icons" [ngValue]="icon">{{ icon }}</option>
-    </select>
-    <ng-container *ngIf="icon.invalid && icon.touched">
-      <div *ngIf="icon?.errors?.['required']">Icon is required.</div>
-    </ng-container>
-  </label>
-  <label>
-    <span>Created By</span>
-    <input type="text" name="created_by" class="input" ngModel />
-  </label>
+<form [formGroup]="serviceForm">
+  <h2>{{ serviceForm.value | json }}</h2>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+    <mat-error *ngIf="name?.invalid && name?.touched">
+      Name is required
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description"> </textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Created By</mat-label>
+    <input matInput formControlName="created_by" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Icon</mat-label>
+    <mat-select matInput placeholder="Icon" formControlName="icon">
+      <mat-option *ngFor="let icon of icons" [value]="icon">
+        {{ icon }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-radio-group formControlName="type">
+    <mat-radio-button value="CONSUL">Consul</mat-radio-button>
+  </mat-radio-group>
 
   <div formGroupName="server_config">
-    <label>
-      <span>Host</span>
-      <input
-        id="host"
-        type="text"
-        class="input"
-        required
-        formControlName="host"
-        #host="ngModel"
-      />
-      <ng-container *ngIf="host.invalid && host.touched">
-        <div *ngIf="host?.errors?.['required']">Host is required.</div>
-      </ng-container>
-    </label>
-    <label>
-      <span>Port</span>
-      <input
-        id="port"
-        type="number"
-        class="input"
-        required
-        formControlName="port"
-        #port="ngModel"
-      />
-      <ng-container *ngIf="port.invalid && port.touched">
-        <div *ngIf="port?.errors?.['required']">Port is required.</div>
-      </ng-container>
-    </label>
+    <h2>Server Config</h2>
+    <mat-form-field>
+      <mat-label>Host</mat-label>
+      <input matInput formControlName="host" />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Port</mat-label>
+      <input matInput type="number" placeholder="Port" formControlName="port" />
+    </mat-form-field>
   </div>
 
-  <div>
-    <p>Type:</p>
-    <label>
-      <input
-        type="radio"
-        name="consul"
-        value="CONSUL"
-        required
-        [ngModel]="'CONSUL'"
-      />
-      <span>Consul</span>
-    </label>
-  </div>
-  <div *ngIf="form.valid && form.submitted; else createButtons">
+  <div *ngIf="loading; else createButtons">
     <mat-spinner style="width: 5%"></mat-spinner>
   </div>
   <ng-template #createButtons>
-    <button type="button" (click)="handleCreate(form)">Create</button>
-    <button type="button" (click)="handleUpdate(form)">Update</button>
-    <button type="button" (click)="handleDelete()">Delete</button>
-    <button type="button" (click)="form.resetForm()">Reset Form</button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [disabled]="serviceForm.invalid"
+      (click)="handleCreate(serviceForm)"
+    >
+      Create
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [disabled]="serviceForm.invalid"
+      (click)="handleUpdate(serviceForm)"
+    >
+      Update
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      [disabled]="serviceForm.invalid"
+      (click)="handleDelete()"
+    >
+      Delete
+    </button>
+    <button
+      mat-raised-button
+      color="accent"
+      type="button"
+      (click)="serviceForm.reset()"
+    >
+      Reset Form
+    </button>
   </ng-template>
-  <pre>{{ service | json }}</pre>
-  <pre>{{ form.value | json }}</pre>
 </form>

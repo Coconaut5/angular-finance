@@ -23,10 +23,14 @@ export class SerivceSingleComponent implements OnInit {
   }
 
   onUpdate(service: ServiceRegistry) {
-    this.serviceRegistryService.updateService(service);
+    this.serviceRegistryService
+      .updateService(service)
+      .subscribe(() => console.log('updated success'));
   }
 
   onDelete(service: ServiceRegistry) {
-    this.serviceRegistryService.deleteService(service);
+    this.serviceRegistryService
+      .deleteService(service)
+      .subscribe(() => console.log('deleted success'));
   }
 }

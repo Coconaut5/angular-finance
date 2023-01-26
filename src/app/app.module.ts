@@ -20,6 +20,8 @@ import { ServiceFormComponent } from './service-form/service-form.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatRadioModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   //providers: [ServiceRegistryService],
   bootstrap: [AppComponent],

@@ -20,4 +20,10 @@ export class ServiceRegistryListComponent {
   trackById(index: number, value: ServiceRegistry) {
     return value.id;
   }
+
+  onDelete(service: ServiceRegistry) {
+    this.serviceRegistryService
+      .deleteService(service)
+      .subscribe(() => this.ngOnInit());
+  }
 }

@@ -96,7 +96,7 @@
     <mat-spinner style="width: 5%"></mat-spinner>
   </div>
   <ng-template #createButtons>
-    <button type="button" (click)="handleCreate(form)">Create</button>
+    <button type="button" (click)="handleCreate(form)" style="display: none">Create</button>
     <button type="button" (click)="handleUpdate(form)">Update</button>
     <button type="button" (click)="handleDelete()">Delete</button>
     <button type="button" (click)="form.resetForm()">Reset Form</button>

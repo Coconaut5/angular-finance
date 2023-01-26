@@ -4,8 +4,15 @@
     [alt]="service.name"
     class="service-card-icon"
   />
-  <div>
-    <p class="service-card-name">{{ service.name }}</p>
+  <div style="width: 100%">
+    <div class="service-card-flex-box">
+      <p class="service-card-name">{{ service.name }}</p>
+      <div class="service-card-delete">
+        <button mat-mini-fab color="warn" (click)="handleDelete()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
     <ng-container [ngSwitch]="service.modifications" ]>
       <span
         *ngSwitchCase="service.modifications.length > 1"
@@ -14,5 +21,6 @@
       >
     </ng-container>
     <p class="service-card-description">{{ service.description }}</p>
+    <p>{{ service.id }}</p>
   </div>
 </div>

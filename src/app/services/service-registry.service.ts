@@ -19,11 +19,12 @@ export class ServiceRegistryService {
       return of(this.serviceRegistries);
     }
 
-    return this.http
-      .get<ServiceRegistry[]>(URL)
-      .pipe(
-        tap(serviceRegistries => (this.serviceRegistries = serviceRegistries)),
-      );
+    return this.http.get<ServiceRegistry[]>(URL).pipe(
+      tap(serviceRegistries => {
+        console.log(serviceRegistries);
+        this.serviceRegistries = serviceRegistries;
+      }),
+    );
   }
 
   getService(id: string) {
@@ -35,17 +36,7 @@ export class ServiceRegistryService {
         if (service) {
           return service;
         }
-
-        return {
-          name: '',
-          description: '',
-          icon: '',
-          type: '',
-          created_by: '',
-          created_at: '',
-          modifications: [],
-          server_config: { host: '', port: 0 },
-        };
+        return {};
       }),
     );
   }
@@ -53,26 +44,35 @@ export class ServiceRegistryService {
   createService(payload: ServiceRegistry) {
     return this.http.post<ServiceRegistry>(URL, payload).pipe(
       tap(service => {
+        console.log(service);
+        console.log(this.serviceRegistries);
         this.serviceRegistries = [...this.serviceRegistries, service];
       }),
     );
   }
 
   updateService(payload: ServiceRegistry) {
-    this.serviceRegistries = this.serviceRegistries.map(
-      (service: ServiceRegistry) => {
-        if (service.id === payload.id) {
-          return payload;
-        }
-        return service;
-      },
+    return this.http.put<ServiceRegistry>(URL, payload).pipe(
+      tap(() => {
+        this.serviceRegistries = this.serviceRegistries.map(
+          (service: ServiceRegistry) => {
+            if (service.id === payload.id) {
+              return payload;
+            }
+            return service;
+          },
+        );
+      }),
     );
-    console.log(this.serviceRegistries);
   }
 
   deleteService(payload: ServiceRegistry) {
-    this.serviceRegistries = this.serviceRegistries.filter(
-      (service: ServiceRegistry) => service.id !== payload.id,
+    return this.http.delete<ServiceRegistry>(`${URL}/${payload.id}`).pipe(
+      tap(() => {
+        this.serviceRegistries = this.serviceRegistries.filter(
+          (service: ServiceRegistry) => service.id !== payload.id,
+        );
+      }),
     );
   }
 }
