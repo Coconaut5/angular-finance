@@ -1,7 +1,23 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaderResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { ServiceRegistry } from '../models/service-registry.model';
-import { tap, of, Observable, map } from 'rxjs';
+import {
+  tap,
+  of,
+  Observable,
+  map,
+  catchError,
+  throwError,
+  retryWhen,
+  delay,
+  take,
+  retry,
+} from 'rxjs';
 
 const URL: string = 'http://localhost:10190/v1/service-registries';
 
@@ -14,6 +30,18 @@ export class ServiceRegistryService {
 
   constructor(private http: HttpClient) {}
 
+  // this can be used to put headers for example to access a remote API with your api key
+  // return this.http.get<ServiceRegistry[]>(URL, options)
+
+  /*  headers = new HttpHeaders({
+    'Content-Type': 'application/json',
+    'Api-Token': '2321312',
+  }); */
+  /* options = {
+    headers,
+    },
+  }; */
+
   getServices(): Observable<ServiceRegistry[]> {
     if (this.serviceRegistries.length) {
       return of(this.serviceRegistries);
@@ -24,6 +52,8 @@ export class ServiceRegistryService {
         console.log(serviceRegistries);
         this.serviceRegistries = serviceRegistries;
       }),
+      retry({ count: 2, delay: 5000 }),
+      catchError(this.handleError),
     );
   }
 
@@ -48,6 +78,7 @@ export class ServiceRegistryService {
         console.log(this.serviceRegistries);
         this.serviceRegistries = [...this.serviceRegistries, service];
       }),
+      catchError(this.handleError),
     );
   }
 
@@ -63,6 +94,7 @@ export class ServiceRegistryService {
           },
         );
       }),
+      catchError(this.handleError),
     );
   }
 
@@ -73,6 +105,19 @@ export class ServiceRegistryService {
           (service: ServiceRegistry) => service.id !== payload.id,
         );
       }),
+      catchError(this.handleError),
     );
+  }
+
+  private handleError(err: HttpErrorResponse) {
+    console.warn(err);
+    if (err.error instanceof ErrorEvent) {
+      // client-side
+      console.warn('Client', err.message);
+    } else {
+      // server-side
+      console.warn('Server', err.status);
+    }
+    return throwError(() => new Error(err.message));
   }
 }

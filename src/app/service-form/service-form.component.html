@@ -1,6 +1,6 @@
-<form [formGroup]="serviceForm">
-  <h2>{{ serviceForm.value | json }}</h2>
-  <mat-form-field>
+<form [formGroup]="serviceForm" class="service-form">
+  <!--<h2>{{ serviceForm.value | json }}</h2> -->
+  <mat-form-field class="service-form-field">
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" />
     <mat-error *ngIf="name?.invalid && name?.touched">
@@ -29,11 +29,11 @@
 
   <div formGroupName="server_config">
     <h2>Server Config</h2>
-    <mat-form-field>
+    <mat-form-field class="service-form-sfield">
       <mat-label>Host</mat-label>
       <input matInput formControlName="host" />
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="service-form-sfield">
       <mat-label>Port</mat-label>
       <input matInput type="number" placeholder="Port" formControlName="port" />
     </mat-form-field>
@@ -43,40 +43,46 @@
     <mat-spinner style="width: 5%"></mat-spinner>
   </div>
   <ng-template #createButtons>
-    <button
-      mat-raised-button
-      color="primary"
-      type="button"
-      [disabled]="serviceForm.invalid"
-      (click)="handleCreate(serviceForm)"
-    >
-      Create
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      type="button"
-      [disabled]="serviceForm.invalid"
-      (click)="handleUpdate(serviceForm)"
-    >
-      Update
-    </button>
-    <button
-      mat-raised-button
-      color="primary"
-      type="button"
-      [disabled]="serviceForm.invalid"
-      (click)="handleDelete()"
-    >
-      Delete
-    </button>
-    <button
-      mat-raised-button
-      color="accent"
-      type="button"
-      (click)="serviceForm.reset()"
-    >
-      Reset Form
-    </button>
+    <div class="service-form-buttons">
+      <button
+        class="service-form-btn"
+        mat-raised-button
+        color="primary"
+        type="button"
+        [disabled]="serviceForm.invalid"
+        (click)="handleCreate(serviceForm)"
+      >
+        Create
+      </button>
+      <button
+        class="service-form-btn"
+        mat-raised-button
+        color="primary"
+        type="button"
+        [disabled]="serviceForm.invalid"
+        (click)="handleUpdate(serviceForm)"
+      >
+        Update
+      </button>
+      <button
+        class="service-form-btn"
+        mat-raised-button
+        color="primary"
+        type="button"
+        [disabled]="serviceForm.invalid"
+        (click)="handleDelete()"
+      >
+        Delete
+      </button>
+      <button
+        class="service-form-btn"
+        mat-raised-button
+        color="accent"
+        type="button"
+        (click)="serviceForm.reset()"
+      >
+        Reset Form
+      </button>
+    </div>
   </ng-template>
 </form>

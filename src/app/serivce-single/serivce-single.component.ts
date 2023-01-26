@@ -23,9 +23,10 @@ export class SerivceSingleComponent implements OnInit {
   }
 
   onUpdate(service: ServiceRegistry) {
-    this.serviceRegistryService
-      .updateService(service)
-      .subscribe(() => console.log('updated success'));
+    this.serviceRegistryService.updateService(service).subscribe({
+      next: () => console.log('updated success'),
+      error: err => console.log('onUpdate error', err),
+    });
   }
 
   onDelete(service: ServiceRegistry) {

@@ -22,6 +22,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { ServicePageComponent } from './service-page/service-page.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { MatSelectModule } from '@angular/material/select';
     ServiceCardComponent,
     SerivceSingleComponent,
     ServiceFormComponent,
+    ServicePageComponent,
   ],
   imports: [
     BrowserModule,

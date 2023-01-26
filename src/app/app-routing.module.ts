@@ -6,8 +6,16 @@ import { SerivceSingleComponent } from './serivce-single/serivce-single.componen
 
 const routes: Routes = [
   { path: '', component: LandingComponent },
-  { path: 'login', component: LoginComponent },
+  {
+    path: 'auth',
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: SerivceSingleComponent },
+    ],
+  },
   { path: 'id', component: SerivceSingleComponent },
+  // should send a message the route did not exist?
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
