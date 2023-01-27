@@ -1,10 +1,17 @@
 <ng-container *ngIf="serviceRegistries$ | async as serviceRegistries">
   <ng-container *ngIf="serviceRegistries.length; else loading">
     <div *ngFor="let service of serviceRegistries; trackBy: trackById">
-      <app-service-card
-        [service]="service"
-        (delete)="onDelete($event)"
-      ></app-service-card>
+      <div
+        [routerLink]="service.id"
+        routerLinkActive="active"
+        ariaCurrentWhenActive="page"
+        style="cursor: pointer"
+      >
+        <app-service-card
+          [service]="service"
+          (delete)="onDelete($event)"
+        ></app-service-card>
+      </div>
     </div>
   </ng-container>
   <ng-template #loading>

@@ -14,11 +14,9 @@
         </button>
       </div>
     </div>
-    <ng-container [ngSwitch]="service.modifications" ]>
-      <span
-        *ngSwitchCase="service.modifications.length > 1"
-        class="service-card-label"
-        >MODIFICATIONS</span
+    <ng-container *ngIf="service.modifications.length" ]>
+      <span class="service-card-label"
+        >MODIFICATIONS: {{ service.modifications.length }}</span
       >
     </ng-container>
     <p class="service-card-description">{{ service.description }}</p>

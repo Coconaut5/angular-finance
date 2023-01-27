@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ServiceRegistryListComponent } from './service-registry-list/service-registry-list.component';
 import { FormsModule } from '@angular/forms';
 import { ServiceCardComponent } from './service-card/service-card.component';
-import { SerivceSingleComponent } from './serivce-single/serivce-single.component';
+import { ServiceSingleComponent } from './service-single/service-single.component';
 import { ServiceFormComponent } from './service-form/service-form.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -32,7 +32,7 @@ import { ServicePageComponent } from './service-page/service-page.component';
     LoginComponent,
     ServiceRegistryListComponent,
     ServiceCardComponent,
-    SerivceSingleComponent,
+    ServiceSingleComponent,
     ServiceFormComponent,
     ServicePageComponent,
   ],

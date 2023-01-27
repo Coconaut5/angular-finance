@@ -6,18 +6,7 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { ServiceRegistry } from '../models/service-registry.model';
-import {
-  tap,
-  of,
-  Observable,
-  map,
-  catchError,
-  throwError,
-  retryWhen,
-  delay,
-  take,
-  retry,
-} from 'rxjs';
+import { tap, of, Observable, map, catchError, throwError, retry } from 'rxjs';
 
 const URL: string = 'http://localhost:10190/v1/service-registries';
 
@@ -57,7 +46,7 @@ export class ServiceRegistryService {
     );
   }
 
-  getService(id: string) {
+  getService(id: string | null) {
     return this.getServices().pipe(
       map(services => {
         const service = services.find(
@@ -66,7 +55,7 @@ export class ServiceRegistryService {
         if (service) {
           return service;
         }
-        return {};
+        return {} as ServiceRegistry;
       }),
     );
   }

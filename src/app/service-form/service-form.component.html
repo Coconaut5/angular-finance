@@ -11,7 +11,7 @@
     <mat-label>Description</mat-label>
     <textarea matInput formControlName="description"> </textarea>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field *ngIf="!isEdit">
     <mat-label>Created By</mat-label>
     <input matInput formControlName="created_by" />
   </mat-form-field>
@@ -49,6 +49,7 @@
         mat-raised-button
         color="primary"
         type="button"
+        *ngIf="!isEdit"
         [disabled]="serviceForm.invalid"
         (click)="handleCreate(serviceForm)"
       >
@@ -59,6 +60,7 @@
         mat-raised-button
         color="primary"
         type="button"
+        *ngIf="isEdit"
         [disabled]="serviceForm.invalid"
         (click)="handleUpdate(serviceForm)"
       >
@@ -67,18 +69,9 @@
       <button
         class="service-form-btn"
         mat-raised-button
-        color="primary"
-        type="button"
-        [disabled]="serviceForm.invalid"
-        (click)="handleDelete()"
-      >
-        Delete
-      </button>
-      <button
-        class="service-form-btn"
-        mat-raised-button
         color="accent"
         type="button"
+        *ngIf="serviceForm.touched"
         (click)="serviceForm.reset()"
       >
         Reset Form

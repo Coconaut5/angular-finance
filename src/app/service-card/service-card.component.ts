@@ -5,14 +5,6 @@ import { ServiceRegistryService } from '../services/service-registry.service';
 @Component({
   selector: 'app-service-card',
   templateUrl: './service-card.component.html',
-  /*styles: [
-    `
-      :host {
-        display: block;
-        border: 4px solid pink;
-      }
-    `,
-  ], */
 })
 export class ServiceCardComponent {
   @Input() service!: ServiceRegistry;

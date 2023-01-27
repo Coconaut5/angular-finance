@@ -14,6 +14,7 @@ import { ServiceRegistry } from '../models/service-registry.model';
 })
 export class ServiceFormComponent implements OnInit {
   @Input() service!: ServiceRegistry;
+  @Input() isEdit!: boolean;
   @Output() create = new EventEmitter<ServiceRegistry>();
   @Output() update = new EventEmitter<ServiceRegistry>();
   @Output() delete = new EventEmitter<ServiceRegistry>();
@@ -27,20 +28,25 @@ export class ServiceFormComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    console.log(this.service);
     const server = this.fb.group({
-      host: ['', [Validators.required]],
+      host: [this?.service?.server_config?.host, [Validators.required]],
       port: [
-        '',
+        this?.service?.server_config?.port,
         [Validators.required, Validators.min(10), Validators.max(10000)],
       ],
     });
 
+    // the default value that gets passed in /update/:id dissappears when reloading page
     this.serviceForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      description: ['', [Validators.required]],
-      icon: ['', [Validators.required]],
+      name: [
+        this?.service?.name,
+        [Validators.required, Validators.minLength(2)],
+      ],
+      description: [this?.service?.description, [Validators.required]],
+      icon: [this?.service?.icon, [Validators.required]],
       type: ['CONSUL', [Validators.required]],
-      created_by: [''],
+      created_by: [this?.service?.created_by],
       server_config: server,
     });
   }
@@ -67,20 +73,25 @@ export class ServiceFormComponent implements OnInit {
   }
 
   handleUpdate(form: FormGroup) {
+    const updated: ServiceRegistry = {
+      id: this.service.id,
+      modified_by: 'temp',
+      ...form.value,
+    };
+
+    delete updated.created_by;
+
     if (form.valid) {
-      this.update.emit({ id: this.service.id, ...form.value });
+      this.update.emit(updated);
     } else {
       form.markAllAsTouched();
     }
   }
 
-  handleDelete() {
-    if (confirm(`Do you really wish to delete ${this.service.name}?`)) {
-      this.delete.emit({ ...this.service });
-    }
-  }
-
   get name() {
     return this.serviceForm.get('name');
+  }
+  get description() {
+    return this.serviceForm.get('description');
   }
 }

@@ -4,7 +4,7 @@ export interface ServiceRegistry {
   description: string;
   icon: string;
   type: TypeEnum;
-  created_by: string;
+  created_by?: string;
   created_at: string;
   modifications: Array<ServiceRegistryModified>;
   server_config: ServerConfig;

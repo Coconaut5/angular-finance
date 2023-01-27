@@ -1,1 +1,11 @@
-<p>service-page works!</p>
+<div class="base-container">
+  <h1>{{ service.name }}</h1>
+  <div (click)="update()" class="nav-item">
+    <h3>Update Service</h3>
+    <a><mat-icon color="primary">create-icon</mat-icon></a>
+  </div>
+  <div *ngFor="let modification of service.modifications">
+    {{ modification | json }}
+  </div>
+  <router-outlet></router-outlet>
+</div>
