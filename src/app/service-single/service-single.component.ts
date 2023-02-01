@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ServiceRegistry } from '../models/service-registry.model';
+import { ServiceFormComponent } from '../service-form/service-form.component';
 import { ServiceRegistryService } from '../services/service-registry.service';
 
 @Component({
+  standalone: true,
+  imports: [ServiceFormComponent],
   selector: 'app-serivce-single',
   templateUrl: './service-single.component.html',
 })
 export class ServiceSingleComponent implements OnInit {
-  service!: ServiceRegistry;
+  //service!: ServiceRegistry;
   isEdit!: boolean;
 
   constructor(
@@ -18,14 +21,6 @@ export class ServiceSingleComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    console.log(id);
-
-    this.serviceRegistryService
-      .getService(id)
-      .subscribe((service: ServiceRegistry) => {
-        (this.service = service), console.log(service);
-      });
     this.isEdit = this.route.snapshot.data['isEdit'];
   }
 

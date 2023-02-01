@@ -1,14 +1,26 @@
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Router, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ServiceRegistry } from '../models/service-registry.model';
+import { ServiceCardComponent } from '../service-card/service-card.component';
 import { ServiceRegistryService } from '../services/service-registry.service';
 
 @Component({
-  selector: 'app-service-registry-list',
-  templateUrl: './service-registry-list.component.html',
+  standalone: true,
+  imports: [
+    RouterModule,
+    ServiceCardComponent,
+    MatProgressSpinnerModule,
+    NgFor,
+    NgIf,
+    AsyncPipe,
+  ],
+  selector: 'app-service-list',
+  templateUrl: './service-list.component.html',
 })
-export class ServiceRegistryListComponent {
+export class ServiceListComponent {
   serviceRegistries$!: Observable<ServiceRegistry[]>;
 
   constructor(
@@ -28,7 +40,7 @@ export class ServiceRegistryListComponent {
   onDelete(service: ServiceRegistry) {
     this.serviceRegistryService.deleteService(service).subscribe(() => {
       // something shady, if i dont have the navigate here it automatically navigates to the route id of the deleted service
-      this.ngOnInit(), this.router.navigate(['']);
+      this.router.navigate(['']);
     });
   }
 }

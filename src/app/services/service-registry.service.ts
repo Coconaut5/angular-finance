@@ -16,6 +16,7 @@ const URL: string = 'http://localhost:10190/v1/service-registries';
 })
 export class ServiceRegistryService {
   private serviceRegistries: ServiceRegistry[] = [];
+  private serviceRegistry!: ServiceRegistry;
 
   constructor(private http: HttpClient) {}
 
@@ -47,6 +48,16 @@ export class ServiceRegistryService {
   }
 
   getService(id: string | null) {
+    return this.http.get<ServiceRegistry>(`${URL}/${id}`).pipe(
+      tap(service => {
+        console.log(service);
+        this.serviceRegistry = service;
+      }),
+      retry({ count: 2, delay: 5000 }),
+      catchError(this.handleError),
+    );
+    // Using state to get a single service
+    /* 
     return this.getServices().pipe(
       map(services => {
         const service = services.find(
@@ -57,7 +68,7 @@ export class ServiceRegistryService {
         }
         return {} as ServiceRegistry;
       }),
-    );
+    ); */
   }
 
   createService(payload: ServiceRegistry) {

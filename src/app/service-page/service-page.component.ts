@@ -1,9 +1,25 @@
+import { DatePipe, JsonPipe, NgForOf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ServiceRegistry } from '../models/service-registry.model';
 import { ServiceRegistryService } from '../services/service-registry.service';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @Component({
+  standalone: true,
+  imports: [
+    RouterModule,
+    MatIconModule,
+    MatExpansionModule,
+    MatButtonModule,
+    MatGridListModule,
+    NgForOf,
+    JsonPipe,
+    DatePipe,
+  ],
   selector: 'app-service-page',
   templateUrl: './service-page.component.html',
 })

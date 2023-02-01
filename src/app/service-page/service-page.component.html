@@ -1,11 +1,53 @@
 <div class="base-container">
-  <h1>{{ service.name }}</h1>
-  <div (click)="update()" class="nav-item">
-    <h3>Update Service</h3>
-    <a><mat-icon color="primary">create-icon</mat-icon></a>
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile style="padding: 0">
+      <h1>{{ service.name }}</h1></mat-grid-tile
+    >
+    <mat-grid-tile>
+      <img
+        src="/assets/img/{{ service.icon }}.svg"
+        [alt]="service.name"
+        style="width: 20%"
+    /></mat-grid-tile>
+    <mat-grid-tile
+      ><h2>{{ service.description }}</h2></mat-grid-tile
+    >
+  </mat-grid-list>
+
+  <span> </span>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Modifications: {{ service.modifications.length }}
+      </mat-panel-title>
+      <mat-panel-description>
+        This is a summary of the content
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <ng-container
+      *ngFor="let modification of service.modifications; let odd = odd"
+    >
+      <div
+        class="testlol"
+        [style.border-color]="odd ? 'rgb(127, 183, 206)' : 'rgb(223, 122, 236)'"
+      >
+        <mat-panel-title>
+          Modified by: {{ modification.modified_by }}
+        </mat-panel-title>
+        <mat-panel-description>
+          Modified at: {{ modification.modified_at | date : 'yyyy-MM-dd' }}
+        </mat-panel-description>
+      </div>
+    </ng-container>
+  </mat-expansion-panel>
+
+  <div (click)="update()" style="margin-top: 2rem">
+    <button mat-raised-button color="primary">
+      Update Service<mat-icon color="white">create-icon</mat-icon>
+    </button>
   </div>
-  <div *ngFor="let modification of service.modifications">
-    {{ modification | json }}
-  </div>
+
   <router-outlet></router-outlet>
 </div>

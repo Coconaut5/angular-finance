@@ -1,19 +1,39 @@
+import { JsonPipe, NgForOf, NgIf } from '@angular/common';
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
-  NgForm,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 import { ServiceRegistry } from '../models/service-registry.model';
+import { ServiceRegistryService } from '../services/service-registry.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatProgressSpinnerModule,
+    NgIf,
+    NgForOf,
+    MatButtonModule,
+    JsonPipe,
+  ],
   selector: 'app-service-form',
   templateUrl: './service-form.component.html',
 })
 export class ServiceFormComponent implements OnInit {
-  @Input() service!: ServiceRegistry;
+  service!: ServiceRegistry;
+  id!: string | null;
   @Input() isEdit!: boolean;
   @Output() create = new EventEmitter<ServiceRegistry>();
   @Output() update = new EventEmitter<ServiceRegistry>();
@@ -21,14 +41,26 @@ export class ServiceFormComponent implements OnInit {
 
   serviceForm!: FormGroup;
 
-  // Form state
-  loading = false;
-  success = false;
-
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private serviceRegistryService: ServiceRegistryService,
+    private route: ActivatedRoute,
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.service);
+    this.id = this.route.snapshot.paramMap.get('id');
+
+    if (this.id !== null) {
+      console.log('we shouldnt get here?');
+      this.serviceRegistryService.getService(this.id).subscribe(service => {
+        this.service = service;
+
+        this.serviceForm.patchValue({
+          ...service,
+        });
+      });
+    }
+
     const server = this.fb.group({
       host: [this?.service?.server_config?.host, [Validators.required]],
       port: [
@@ -37,7 +69,6 @@ export class ServiceFormComponent implements OnInit {
       ],
     });
 
-    // the default value that gets passed in /update/:id dissappears when reloading page
     this.serviceForm = this.fb.group({
       name: [
         this?.service?.name,
@@ -64,9 +95,8 @@ export class ServiceFormComponent implements OnInit {
 
   handleCreate(form: FormGroup) {
     if (form.valid) {
-      this.loading = true;
       this.create.emit(form.value);
-      this.loading = false;
+      this.ngOnInit();
     } else {
       form.markAllAsTouched();
     }
@@ -83,6 +113,7 @@ export class ServiceFormComponent implements OnInit {
 
     if (form.valid) {
       this.update.emit(updated);
+      this.ngOnInit();
     } else {
       form.markAllAsTouched();
     }

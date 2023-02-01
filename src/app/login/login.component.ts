@@ -1,7 +1,24 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    NgIf,
+  ],
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
