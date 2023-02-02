@@ -1,18 +1,19 @@
 <div class="base-container">
-  <mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile style="padding: 0">
-      <h1>{{ service.name }}</h1></mat-grid-tile
-    >
-    <mat-grid-tile>
+  <div class="flex-box-test">
+    <div class="flexbox-txt">
+      <h1>{{ service.name }}</h1>
+    </div>
+    <div class="test-box">
       <img
         src="/assets/img/{{ service.icon }}.svg"
         [alt]="service.name"
-        style="width: 20%"
-    /></mat-grid-tile>
-    <mat-grid-tile
-      ><h2>{{ service.description }}</h2></mat-grid-tile
-    >
-  </mat-grid-list>
+        class="igme"
+      />
+    </div>
+  </div>
+  <div>
+    <h2>{{ service.description }}</h2>
+  </div>
 
   <span> </span>
 

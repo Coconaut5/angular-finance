@@ -159,6 +159,36 @@
   border-bottom: solid;
 }
 
+.flex-box-test {
+  display: flex;
+}
+
+.test-box {
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.igme {
+  width: 20%;
+  margin-left: auto;
+}
+
+.flexbox-txt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    font-weight: bolder;
+    font-size: 3.5rem;
+  }
+}
+
+.snack-test {
+  background: #f44336 #{'!important'};
+  color: white;
+}
+
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
 html,

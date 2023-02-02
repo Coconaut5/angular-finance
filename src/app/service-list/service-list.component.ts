@@ -6,6 +6,10 @@ import { Observable } from 'rxjs';
 import { ServiceRegistry } from '../models/service-registry.model';
 import { ServiceCardComponent } from '../service-card/service-card.component';
 import { ServiceRegistryService } from '../services/service-registry.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   standalone: true,
@@ -13,6 +17,8 @@ import { ServiceRegistryService } from '../services/service-registry.service';
     RouterModule,
     ServiceCardComponent,
     MatProgressSpinnerModule,
+    MatDialogModule,
+    MatSnackBarModule,
     NgFor,
     NgIf,
     AsyncPipe,
@@ -26,6 +32,7 @@ export class ServiceListComponent {
   constructor(
     private serviceRegistryService: ServiceRegistryService,
     private router: Router,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +47,10 @@ export class ServiceListComponent {
   onDelete(service: ServiceRegistry) {
     this.serviceRegistryService.deleteService(service).subscribe(() => {
       // something shady, if i dont have the navigate here it automatically navigates to the route id of the deleted service
+      this.snackBar.open('Item Deleted', 'Dismiss', {
+        duration: 2000,
+        panelClass: ['snack-test'],
+      });
       this.router.navigate(['']);
     });
   }

@@ -17,6 +17,9 @@ export class ServiceCardComponent {
 
   constructor(private serviceRegistryService: ServiceRegistryService) {}
 
+  // Simple message with an action.
+  //snackBarRef = this.snackBar.open('Message archived', 'Undo');
+
   handleDelete() {
     if (confirm(`Do you really wish to delete ${this.service.name}?`)) {
       this.delete.emit({ ...this.service });
